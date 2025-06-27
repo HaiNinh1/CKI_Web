@@ -12,12 +12,10 @@ function App() {
   const [employees, setEmployees] = useState([]);
   const [selectedEmployees, setSelectedEmployees] = useState([]);
 
-  // Sử dụng useEffect để lấy dữ liệu ban đầu từ file data
   useEffect(() => {
     setEmployees(initialEmployeesData);
   }, []);
 
-  // Modal states
   const [showModalAdd, setShowModalAdd] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
   const [showModalDelete, setShowModalDelete] = useState(false);
