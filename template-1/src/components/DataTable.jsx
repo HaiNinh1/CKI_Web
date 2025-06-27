@@ -135,11 +135,7 @@ export default function DataTable() {
         </table>
         <div className="d-flex justify-content-between align-items-center">
           <div>
-            Hiển thị{" "}
-            <b>
-              {filteredTasks.length} / {tasks.length}
-            </b>{" "}
-            bản ghi
+            Hiển thị <b>{tasks.length}</b> bản ghi
           </div>
           <nav>
             <ul className="pagination mb-0">

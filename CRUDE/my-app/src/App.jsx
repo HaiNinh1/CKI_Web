@@ -7,6 +7,7 @@ import EditModal from "./components/Employee/EditModal.jsx";
 import DeleteModal from "./components/Employee/DeleteModal.jsx";
 import ViewModal from "./components/Employee/ViewModal.jsx";
 import { initialEmployeesData } from "./data";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [employees, setEmployees] = useState([]);
@@ -24,10 +25,7 @@ function App() {
 
   // Thêm employee
   const handleAddEmployee = (employee) => {
-    const newId =
-      employees.length > 0 ? Math.max(...employees.map((e) => e.id)) + 1 : 1;
-    const newEmployee = { ...employee, id: newId };
-    const updated = [...employees, newEmployee];
+    const updated = [...employees, employee];
     setEmployees(updated);
   };
 
