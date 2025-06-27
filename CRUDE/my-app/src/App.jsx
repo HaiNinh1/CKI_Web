@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar/Navbar.jsx";
 import EmployeeList from "./components/Employee/EmployeeList.jsx";
@@ -9,15 +9,18 @@ import ViewModal from "./components/Employee/ViewModal.jsx";
 import { initialEmployeesData } from "./data";
 
 function App() {
-  // Lấy danh sách employee từ localStorage hoặc data.js
-  const getInitialEmployees = () => {
-    const stored = localStorage.getItem("employees");
-    if (stored) return JSON.parse(stored);
-    localStorage.setItem("employees", JSON.stringify(initialEmployeesData));
-    return initialEmployeesData;
-  };
+  const [employees, setEmployees] = useState([]);
 
-  const [employees, setEmployees] = useState(getInitialEmployees());
+  // Sử dụng useEffect để lấy dữ liệu ban đầu từ file data hoặc localStorage
+  useEffect(() => {
+    const stored = localStorage.getItem("employees");
+    if (stored) {
+      setEmployees(JSON.parse(stored));
+    } else {
+      setEmployees(initialEmployeesData);
+      localStorage.setItem("employees", JSON.stringify(initialEmployeesData));
+    }
+  }, []);
 
   // Modal states
   const [showModalAdd, setShowModalAdd] = useState(false);
