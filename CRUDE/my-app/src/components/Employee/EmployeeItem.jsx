@@ -1,22 +1,33 @@
 import React from "react";
 
-const EmployeeItem = ({ emp, onView, onEdit, onDelete }) => {
+const EmployeeItem = ({ emp, isSelected, onSelect, onEdit, onDelete }) => {
   return (
     <tr>
-      <th scope="row">{emp.id}</th>
+      <td>
+        <input
+          type="checkbox"
+          checked={isSelected || false}
+          onChange={onSelect}
+        />
+      </td>
       <td>{emp.name}</td>
       <td>{emp.email}</td>
+      <td>{emp.address}</td>
       <td>{emp.phone}</td>
-      <td>{emp.position}</td>
-      <td className="d-flex gap-1">
-        <button className="btn btn-info btn-sm" onClick={() => onView(emp)}>
-          View
+      <td>
+        <button
+          className="btn text-warning bg-transparent border-0 me-2"
+          onClick={() => onEdit(emp)}
+          title="Edit"
+        >
+          <i className="bi bi-pencil-fill"></i>
         </button>
-        <button className="btn btn-warning btn-sm" onClick={() => onEdit(emp)}>
-          Edit
-        </button>
-        <button className="btn btn-danger btn-sm" onClick={() => onDelete(emp)}>
-          Delete
+        <button
+          className="btn text-danger bg-transparent border-0"
+          onClick={() => onDelete(emp)}
+          title="Delete"
+        >
+          <i className="bi bi-trash-fill"></i>
         </button>
       </td>
     </tr>

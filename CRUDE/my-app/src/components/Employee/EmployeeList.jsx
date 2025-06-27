@@ -1,17 +1,36 @@
 import React from "react";
 import EmployeeItem from "./EmployeeItem";
 
-const EmployeeList = ({ employees, onView, onEdit, onDelete }) => {
+const EmployeeList = ({
+  employees,
+  selectedEmployees,
+  onSelectEmployee,
+  onEdit,
+  onDelete,
+}) => {
   return (
-    <table className="table table-hover ">
+    <table className="table table-striped table-hover">
       <thead>
         <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Name</th>
-          <th scope="col">Email</th>
-          <th scope="col">Phone</th>
-          <th scope="col">Position</th>
-          <th scope="col">Action</th>
+          <th>
+            <input
+              type="checkbox"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  const allIds = employees.map((emp) => emp.id);
+                  onSelectEmployee(allIds);
+                } else {
+                  onSelectEmployee([]);
+                }
+              }}
+              checked={selectedEmployees?.length === employees.length}
+            />
+          </th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Address</th>
+          <th>Phone</th>
+          <th>Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -19,7 +38,8 @@ const EmployeeList = ({ employees, onView, onEdit, onDelete }) => {
           <EmployeeItem
             key={emp.id}
             emp={emp}
-            onView={onView}
+            isSelected={selectedEmployees?.includes(emp.id)}
+            onSelect={() => onSelectEmployee(emp.id)}
             onEdit={onEdit}
             onDelete={onDelete}
           />

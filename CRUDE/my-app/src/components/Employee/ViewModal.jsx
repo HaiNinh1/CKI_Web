@@ -45,12 +45,12 @@ const ViewModal = ({ show, setShow, employee }) => {
             <p>{employee.email}</p>
           </div>
           <div className="mb-3">
-            <label className="fw-bold">Phone:</label>
-            <p>{employee.phone}</p>
+            <label className="fw-bold">Address:</label>
+            <p>{employee.address}</p>
           </div>
           <div className="mb-3">
-            <label className="fw-bold">Position:</label>
-            <p>{employee.position}</p>
+            <label className="fw-bold">Phone:</label>
+            <p>{employee.phone}</p>
           </div>
         </div>
         <div className="d-flex justify-content-end">

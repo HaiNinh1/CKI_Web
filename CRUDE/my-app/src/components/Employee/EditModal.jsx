@@ -6,7 +6,7 @@ const EditModal = ({ show, setShow, employee, onEdit }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [position, setPosition] = useState("");
+  const [address, setAddress] = useState("");
 
   // Populate form when employee changes
   useEffect(() => {
@@ -14,7 +14,7 @@ const EditModal = ({ show, setShow, employee, onEdit }) => {
       setName(employee.name || "");
       setEmail(employee.email || "");
       setPhone(employee.phone || "");
-      setPosition(employee.position || "");
+      setAddress(employee.address || "");
     }
   }, [employee]);
 
@@ -24,14 +24,14 @@ const EditModal = ({ show, setShow, employee, onEdit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!name || !email || !phone || !position) return;
+    if (!name || !email || !phone || !address) return;
 
     onEdit({
       id: employee.id,
       name,
       email,
       phone,
-      position,
+      address,
     });
 
     handleClose();
@@ -82,22 +82,22 @@ const EditModal = ({ show, setShow, employee, onEdit }) => {
             />
           </div>
           <div className="col-12">
+            <label className="form-label">Address</label>
+            <input
+              type="text"
+              className="form-control"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              required
+            />
+          </div>
+          <div className="col-12">
             <label className="form-label">Phone</label>
             <input
               type="text"
               className="form-control"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              required
-            />
-          </div>
-          <div className="col-12">
-            <label className="form-label">Position</label>
-            <input
-              type="text"
-              className="form-control"
-              value={position}
-              onChange={(e) => setPosition(e.target.value)}
               required
             />
           </div>
