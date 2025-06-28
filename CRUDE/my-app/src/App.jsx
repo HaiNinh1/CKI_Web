@@ -11,11 +11,26 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [employees, setEmployees] = useState([]);
-  const [selectedEmployees, setSelectedEmployees] = useState([]);
+  const [notification, setNotification] = useState({
+    show: false,
+    message: "",
+    type: "success",
+  });
 
   useEffect(() => {
     setEmployees(initialEmployeesData);
   }, []);
+
+  // Auto-hide notification after 3 seconds
+  useEffect(() => {
+    let timer;
+    if (notification.show) {
+      timer = setTimeout(() => {
+        setNotification({ ...notification, show: false });
+      }, 3000);
+    }
+    return () => clearTimeout(timer);
+  }, [notification.show]);
 
   const [showModalAdd, setShowModalAdd] = useState(false);
   const [showModalEdit, setShowModalEdit] = useState(false);
@@ -27,22 +42,22 @@ function App() {
   const handleAddEmployee = (employee) => {
     const updated = [...employees, employee];
     setEmployees(updated);
-  };
-
-  // Xóa employee đã chọn
-  const handleDeleteSelected = () => {
-    if (selectedEmployees.length === 0) return;
-    const updatedEmployees = employees.filter(
-      (emp) => !selectedEmployees.includes(emp.id)
-    );
-    setEmployees(updatedEmployees);
-    setSelectedEmployees([]);
+    setNotification({
+      show: true,
+      message: "Employee added successfully!",
+      type: "success",
+    });
   };
 
   // Xóa một employee
   const handleDeleteEmployee = (id) => {
     const updated = employees.filter((e) => e.id !== id);
     setEmployees(updated);
+    setNotification({
+      show: true,
+      message: "Employee deleted successfully!",
+      type: "success",
+    });
   };
 
   // Sửa employee
@@ -51,16 +66,10 @@ function App() {
       e.id === updatedEmp.id ? updatedEmp : e
     );
     setEmployees(updated);
-  };
-
-  // Toggle employee selection
-  const handleSelectEmployee = (id) => {
-    setSelectedEmployees((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((empId) => empId !== id);
-      } else {
-        return [...prev, id];
-      }
+    setNotification({
+      show: true,
+      message: "Employee updated successfully!",
+      type: "success",
     });
   };
 
@@ -90,13 +99,6 @@ function App() {
           <h3 className="mb-0">Manage Employees</h3>
           <div>
             <button
-              className="btn btn-danger me-2"
-              onClick={handleDeleteSelected}
-              disabled={selectedEmployees.length === 0}
-            >
-              <i className="bi bi-dash-circle me-1"></i> Delete
-            </button>
-            <button
               className="btn btn-success"
               onClick={() => setShowModalAdd(true)}
             >
@@ -106,10 +108,9 @@ function App() {
         </div>
         <EmployeeList
           employees={employees}
-          selectedEmployees={selectedEmployees}
-          onSelectEmployee={handleSelectEmployee}
           onEdit={handleOpenEditModal}
           onDelete={handleOpenDeleteModal}
+          notification={notification}
         />
 
         {/* All Modals */}

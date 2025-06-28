@@ -1,51 +1,36 @@
 import React from "react";
 import EmployeeItem from "./EmployeeItem";
 
-const EmployeeList = ({
-  employees,
-  selectedEmployees,
-  onSelectEmployee,
-  onEdit,
-  onDelete,
-}) => {
+const EmployeeList = ({ employees, onEdit, onDelete, notification }) => {
   return (
-    <table className="table table-striped table-hover">
-      <thead>
-        <tr>
-          <th>
-            <input
-              type="checkbox"
-              onChange={(e) => {
-                if (e.target.checked) {
-                  const allIds = employees.map((emp) => emp.id);
-                  onSelectEmployee(allIds);
-                } else {
-                  onSelectEmployee([]);
-                }
-              }}
-              checked={selectedEmployees?.length === employees.length}
+    <>
+      {notification && notification.show && (
+        <div className={`alert alert-${notification.type} mb-3`} role="alert">
+          {notification.message}
+        </div>
+      )}
+      <table className="table table-striped table-hover">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {employees.map((emp) => (
+            <EmployeeItem
+              key={emp.id}
+              emp={emp}
+              onEdit={onEdit}
+              onDelete={onDelete}
             />
-          </th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Address</th>
-          <th>Phone</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {employees.map((emp) => (
-          <EmployeeItem
-            key={emp.id}
-            emp={emp}
-            isSelected={selectedEmployees?.includes(emp.id)}
-            onSelect={() => onSelectEmployee(emp.id)}
-            onEdit={onEdit}
-            onDelete={onDelete}
-          />
-        ))}
-      </tbody>
-    </table>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 };
 

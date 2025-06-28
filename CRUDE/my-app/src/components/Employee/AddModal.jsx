@@ -98,19 +98,16 @@ const AddModal = (props) => {
       return;
     }
 
-    // If validation passes, create employee object with ID and add it
     const newEmployee = {
       id: new Date().getTime(),
-      name,
-      email,
-      phone,
-      address,
+      name: name,
+      email: email,
+      phone: phone,
+      address: address,
     };
 
-    // Pass the new employee object to onAdd
     onAdd(newEmployee);
 
-    // Reset form fields and errors
     setName("");
     setEmail("");
     setPhone("");

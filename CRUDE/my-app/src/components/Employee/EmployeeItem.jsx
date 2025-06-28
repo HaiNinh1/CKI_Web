@@ -1,15 +1,8 @@
 import React from "react";
 
-const EmployeeItem = ({ emp, isSelected, onSelect, onEdit, onDelete }) => {
+const EmployeeItem = ({ emp, onEdit, onDelete }) => {
   return (
     <tr>
-      <td>
-        <input
-          type="checkbox"
-          checked={isSelected || false}
-          onChange={onSelect}
-        />
-      </td>
       <td>{emp.name}</td>
       <td>{emp.email}</td>
       <td>{emp.address}</td>
